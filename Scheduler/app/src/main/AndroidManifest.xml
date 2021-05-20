@@ -9,6 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Scheduler">
+        <activity android:name=".ui.membership.SigninActivity" />
+        <activity android:name=".ui.membership.SignupActivity" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">

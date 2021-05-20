@@ -1,4 +1,4 @@
-package com.mobileapp.scheduler.ui.dashboard;
+package com.mobileapp.scheduler.ui.calender;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,12 +13,15 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.mobileapp.scheduler.R;
-import com.mobileapp.scheduler.databinding.FragmentDashboardBinding;
 
-public class DashboardFragment extends Fragment {
+//import com.mobileapp.scheduler.databinding.FragmentHomeBinding;
+
+public class calenderFragment extends Fragment {
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        View root = inflater.inflate(R.layout.fragment_calender, container, false);
         return root;
     }
+
 }
