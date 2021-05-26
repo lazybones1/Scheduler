@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_calendar">
+
+    <fragment
+        android:id="@+id/navigation_calendar"
+        android:name="com.mobileapp.scheduler.ui.calender.CalenderFragment"
+        android:label="달력"
+        tools:layout="@layout/fragment_calender" />
+
+    <fragment
+        android:id="@+id/navigation_memo"
+        android:name="com.mobileapp.scheduler.ui.memo.MemoFragment"
+        android:label="메모"
+        tools:layout="@layout/fragment_memo" />
+
+    <fragment
+        android:id="@+id/navigation_diary"
+        android:name="com.mobileapp.scheduler.ui.diary.DiaryFragment"
+        android:label="일기"
+        tools:layout="@layout/fragment_diary" />
+
+    <fragment
+        android:id="@+id/navigation_timer"
+        android:name="com.mobileapp.scheduler.ui.timer.TimerFragment"
+        android:label="타이머"
+        tools:layout="@layout/fragment_timer" />
+</navigation>
