@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 import com.mobileapp.scheduler.dao.MemoDao;
 import com.mobileapp.scheduler.entity.Memo;
 
-@Database(entities = {Memo.class}, version=1)
+@Database(entities = {Memo.class}, version=1, exportSchema = false)
 public abstract class MemoRoomDatabase extends RoomDatabase {
     public abstract MemoDao memoDao();
 

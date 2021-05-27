@@ -11,7 +11,7 @@ import com.mobileapp.scheduler.dao.MemoDao;
 import com.mobileapp.scheduler.entity.Diary;
 import com.mobileapp.scheduler.entity.Memo;
 
-@Database(entities = {Diary.class}, version=1)
+@Database(entities = {Diary.class}, version=1, exportSchema = false)
 public abstract class DiaryRoomDatabase extends RoomDatabase {
     public abstract DiaryDao diaryDao();
 

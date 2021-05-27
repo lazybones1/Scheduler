@@ -8,7 +8,6 @@ import com.mobileapp.scheduler.entity.Calendar;
 import com.mobileapp.scheduler.entity.Diary;
 
 import java.util.List;
-
 @Dao
 public interface DiaryDao {
     @Query("SELECT * FROM Diary")

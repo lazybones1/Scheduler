@@ -159,10 +159,6 @@
             android:layout_marginTop="20dp"
             android:text="START"
             app:backgroundTint="#2196F3">
-
         </Button>
-
     </LinearLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

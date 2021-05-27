@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_calendar"
-        android:name="com.mobileapp.scheduler.ui.calender.CalenderFragment"
+        android:name="com.mobileapp.scheduler.ui.calender.CalendarFragment"
         android:label="달력"
         tools:layout="@layout/fragment_calender" />
 

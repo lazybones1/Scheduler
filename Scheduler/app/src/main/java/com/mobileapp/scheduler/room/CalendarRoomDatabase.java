@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 import com.mobileapp.scheduler.dao.CalendarDao;
 import com.mobileapp.scheduler.entity.Calendar;
 
-@Database(entities = {Calendar.class}, version=1)
+@Database(entities = {Calendar.class}, version=1, exportSchema = false)
 public abstract class CalendarRoomDatabase extends RoomDatabase {
     public abstract CalendarDao calendarDao();
 

@@ -14,14 +14,11 @@ public class Calendar {
     @ColumnInfo(name = "calendar_name")
     public String calendarName;
 
-    @ColumnInfo(name = "start_dat")
+    @ColumnInfo(name = "start_day")
     public String startDay;
 
     @ColumnInfo(name = "start_time")
     public String startTime;
-
-    @ColumnInfo(name = "end_dat")
-    public String endDay;
 
     @ColumnInfo(name = "end_time")
     public String endTime;
@@ -45,16 +42,32 @@ public class Calendar {
         return startTime;
     }
 
-    public String getEndDay() {
-        return endDay;
-    }
-
     public String getEndTime() {
         return endTime;
     }
 
     public String getCalendar_memo() {
         return calendar_memo;
+    }
+
+    public void setCalendarName(String calendarName) {
+        this.calendarName = calendarName;
+    }
+
+    public void setStartDay(String startDay) {
+        this.startDay = startDay;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+    public void setCalendar_memo(String calendar_memo) {
+        this.calendar_memo = calendar_memo;
     }
 }
 

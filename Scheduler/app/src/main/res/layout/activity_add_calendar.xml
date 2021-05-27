@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/showDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="showDate"
+        android:textSize="40sp"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="30dp"/>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/showDate"
+        android:layout_marginTop="15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="일정 이름"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:layout_weight="2"
+                />
+            <EditText
+                android:id="@+id/addCalendarName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="일정 이름을 입력해 주세요"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="시작 날짜"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:layout_weight="1"
+                />
+            <TextView
+                android:id="@+id/addCalendarStartDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="시작날짜"
+                />
+            <Button
+                android:id="@+id/startDayBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="날짜선택"
+                android:textSize="10sp"
+                android:layout_weight="1"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="시작 시간"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:layout_weight="1"
+                />
+            <TextView
+                android:id="@+id/addCalendarStartTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="시작 시간"
+                />
+            <Button
+                android:id="@+id/startTimeBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="시간선택"
+                android:textSize="10sp"
+                android:layout_weight="1"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="종료 시간"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:layout_weight="1"
+                />
+            <TextView
+                android:id="@+id/addCalendarEndTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="종료 시간"
+                />
+            <Button
+                android:id="@+id/endTimeBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="시간선택"
+                android:textSize="10sp"
+                android:layout_weight="1"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="메모"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:layout_weight="2"
+                />
+            <EditText
+                android:id="@+id/addCalendarMemo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="200dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="메모를 입력해 주세요"
+                android:background="@drawable/edittext_rounded_corner_rectangle"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/addCalendarBtn"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="등록"
+
+        app:layout_constraintBottom_toBottomOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

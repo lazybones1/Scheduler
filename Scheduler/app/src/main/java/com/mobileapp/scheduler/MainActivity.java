@@ -1,7 +1,11 @@
 package com.mobileapp.scheduler;
 
+import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -12,31 +16,64 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.room.Room;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.mobileapp.scheduler.Async.CalendarInsertAsync;
+import com.mobileapp.scheduler.Async.CalendarShowAsync;
+import com.mobileapp.scheduler.dao.CalendarDao;
 import com.mobileapp.scheduler.databinding.ActivityMainBinding;
+import com.mobileapp.scheduler.entity.Calendar;
+import com.mobileapp.scheduler.room.CalendarRoomDatabase;
+import com.mobileapp.scheduler.ui.calender.AddCalendarActivty;
+import com.mobileapp.scheduler.ui.calender.CalendarFragment;
+import com.mobileapp.scheduler.ui.diary.DiaryFragment;
 import com.mobileapp.scheduler.ui.membership.SigninActivity;
+import com.mobileapp.scheduler.ui.memo.MemoFragment;
+import com.mobileapp.scheduler.ui.timer.TimerFragment;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
     private Button loginBtn;
+
     private DrawerLayout drawerLayout;
     private View drawerView;
     private ActivityMainBinding binding;
     private long backKeyPressedTime = 0;
+
+    CalendarRoomDatabase c;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
 
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        c = CalendarRoomDatabase.getDatabase(this);
+        List<Calendar> tmplist = new ArrayList<>();
+        try {
+            tmplist = new CalendarShowAsync(c.calendarDao()).execute().get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Log.e("CalendarDb S", ""+tmplist.size());
+        for(int i = 0; i<tmplist.size(); i++){
+            Log.e("CalendarDb", "" + tmplist.get(i).getCalendarName() + " " + tmplist.get(i).getStartDay());
+        }
+
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -48,8 +85,9 @@ public class MainActivity extends AppCompatActivity {
 //        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-        drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
-        drawerView = (View)findViewById(R.id.drawer);
+
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerView = (View) findViewById(R.id.drawer);
 
         //navigation drawer
         drawerLayout.setDrawerListener(listener);
@@ -61,10 +99,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         loginBtn = findViewById(R.id.button_login);
-        if(FirebaseAuth.getInstance().getCurrentUser() == null){
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             loginBtn.setText("로그인");
-        }
-        else {
+        } else {
             loginBtn.setText("로그아웃");
         }
 
@@ -74,6 +111,8 @@ public class MainActivity extends AppCompatActivity {
                 login();
             }
         });
+
+
     }
 
     //navigation drawer
@@ -81,23 +120,25 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
         }
+
         @Override
         public void onDrawerOpened(@NonNull View drawerView) {
         }
+
         @Override
         public void onDrawerClosed(@NonNull View drawerView) {
         }
+
         @Override
         public void onDrawerStateChanged(int newState) {
         }
     };
 
-    private void login(){
-        if(FirebaseAuth.getInstance().getCurrentUser() == null){
+    private void login() {
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             Intent intent = new Intent(MainActivity.this, SigninActivity.class);
             startActivity(intent);
-        }
-        else{
+        } else {
             FirebaseAuth.getInstance().signOut();
             Intent intent = new Intent(MainActivity.this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -122,4 +163,33 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void addMemo() {
+
+    }
+
+    public void addDiary() {
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+       if (requestCode == CalendarFragment.Calendar_REQUEST_CODE) {
+            if (resultCode != Activity.RESULT_OK) {
+                return;
+            }
+           Calendar calendar = new Calendar();
+           calendar.setCalendarName(data.getStringExtra("c_cname"));
+           calendar.setStartDay(data.getStringExtra("c_sDate"));
+           calendar.setStartTime(data.getStringExtra("c_sTime"));
+           calendar.setEndTime(data.getStringExtra("c_eTime"));
+           calendar.setCalendar_memo(data.getStringExtra("c_cMemo"));
+
+           new CalendarInsertAsync(c.calendarDao()).execute(calendar);
+
+           Intent intent = getIntent();
+           finish();
+           startActivity(intent);
+        }
+    }
 }
