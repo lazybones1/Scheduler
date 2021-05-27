@@ -65,7 +65,7 @@ public class MemoFragment extends Fragment {
             e.printStackTrace();
         }
         finally {
-            MemoAdapter memoAdapter = new MemoAdapter(memoList, getActivity());
+            MemoAdapter memoAdapter = new MemoAdapter(memoList, getActivity(), getActivity(), today);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             recyclerView.setAdapter(memoAdapter);
         }
@@ -82,7 +82,7 @@ public class MemoFragment extends Fragment {
                 }catch (Exception e){
                     e.printStackTrace();
                 }finally {
-                    MemoAdapter memoAdapter = new MemoAdapter(memoList, getActivity());
+                    MemoAdapter memoAdapter = new MemoAdapter(memoList, getActivity(), getActivity(), day);
                     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                     recyclerView.setAdapter(memoAdapter);
                 }

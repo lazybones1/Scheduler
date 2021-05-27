@@ -64,7 +64,7 @@ public class DiaryFragment extends Fragment {
             e.printStackTrace();
         }
         finally {
-            DiaryAdapter diaryAdapter = new DiaryAdapter(diaryList, getActivity());
+            DiaryAdapter diaryAdapter = new DiaryAdapter(diaryList, getActivity() , getActivity(), today);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             recyclerView.setAdapter(diaryAdapter);
         }
@@ -81,7 +81,7 @@ public class DiaryFragment extends Fragment {
                 }catch (Exception e){
                     e.printStackTrace();
                 }finally {
-                    DiaryAdapter diaryAdapter = new DiaryAdapter(diaryList, getActivity());
+                    DiaryAdapter diaryAdapter = new DiaryAdapter(diaryList, getActivity(), getActivity(), day);
                     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                     recyclerView.setAdapter(diaryAdapter);
                 }

@@ -65,7 +65,10 @@ public class CalendarFragment extends Fragment {
             e.printStackTrace();
         }
         finally {
-            CalendarAdapter calendarAdapter = new CalendarAdapter(calendarList, getActivity());
+            for(int i = 0; i<calendarList.size(); i++){
+                Log.e("오늘 이벤트", "ㅇ " + calendarList.get(i).getCalendarName() + " " + calendarList.get(i).getStartDay() + " " + calendarList.get(i).getStartTime() + " " + calendarList.get(i).getEndTime() + " " + calendarList.get(i).getCalendar_memo() + " ");
+            }
+            CalendarAdapter calendarAdapter = new CalendarAdapter(calendarList, getActivity(), getActivity(), today);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             recyclerView.setAdapter(calendarAdapter);
         }
@@ -82,7 +85,7 @@ public class CalendarFragment extends Fragment {
                 }catch (Exception e){
                     e.printStackTrace();
                 }finally {
-                    CalendarAdapter calendarAdapter = new CalendarAdapter(calendarList, getActivity());
+                    CalendarAdapter calendarAdapter = new CalendarAdapter(calendarList, getActivity(), getActivity(), day);
                     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                     recyclerView.setAdapter(calendarAdapter);
                 }
@@ -116,7 +119,6 @@ public class CalendarFragment extends Fragment {
             e.printStackTrace();
         }
         for(int i = 0; i<tmplist.size(); i++){
-            Log.e("겟올"," "+tmplist.size()+ " " + tmplist.get(i).startDay);
             String[] day1 = tmplist.get(i).startDay.split("-");
             dates.add(CalendarDay.from(Integer.parseInt(day1[0]), Integer.parseInt(day1[1])-1, Integer.parseInt(day1[2])));
             materialCalendarView.addDecorators(new EventDecorator(Color.RED, dates));
