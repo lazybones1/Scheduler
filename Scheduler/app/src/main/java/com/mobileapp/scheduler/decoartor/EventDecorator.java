@@ -1,4 +1,4 @@
-package com.mobileapp.scheduler.ui.calender;
+package com.mobileapp.scheduler.decoartor;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;

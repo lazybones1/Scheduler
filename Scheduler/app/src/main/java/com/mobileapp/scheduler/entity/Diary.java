@@ -20,6 +20,9 @@ public class Diary {
     @ColumnInfo(name = "diary_memo")
     public String diary_memo;
 
+    @ColumnInfo(name = "diary_day")
+    public String diary_day;
+
     public int getUid() {
         return uid;
     }
@@ -34,6 +37,30 @@ public class Diary {
 
     public String getDiary_weather() {
         return diary_weather;
+    }
+
+    public String getDiary_day() {
+        return diary_day;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
+
+    public void setDiaryName(String diaryName) {
+        this.diaryName = diaryName;
+    }
+
+    public void setDiary_weather(String diary_weather) {
+        this.diary_weather = diary_weather;
+    }
+
+    public void setDiary_memo(String diary_memo) {
+        this.diary_memo = diary_memo;
+    }
+
+    public void setDiary_day(String diary_day) {
+        this.diary_day = diary_day;
     }
 }
 

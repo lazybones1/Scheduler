@@ -1,4 +1,4 @@
-package com.mobileapp.scheduler.ui.calender;
+package com.mobileapp.scheduler.decoartor;
 
 import android.graphics.Color;
 import android.text.style.ForegroundColorSpan;

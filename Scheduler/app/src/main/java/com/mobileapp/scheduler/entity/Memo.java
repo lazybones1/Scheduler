@@ -17,6 +17,9 @@ public class Memo {
     @ColumnInfo(name = "memoContent")
     public String memoContent;
 
+    @ColumnInfo(name = "memoDay")
+    public String memoDay;
+
     public int getUid() {
         return uid;
     }
@@ -27,6 +30,26 @@ public class Memo {
 
     public String getMemoContent() {
         return memoContent;
+    }
+
+    public String getMemoDay() {
+        return memoDay;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
+
+    public void setMemoName(String memoName) {
+        this.memoName = memoName;
+    }
+
+    public void setMemoContent(String memoContent) {
+        this.memoContent = memoContent;
+    }
+
+    public void setMemoDay(String memoDay) {
+        this.memoDay = memoDay;
     }
 }
 

@@ -4,19 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.diary.DiaryFragment">
+    tools:context=".ui.memo.MemoFragment">
 
-    <TextView
-        android:id="@+id/text_diary"
-        android:layout_width="match_parent"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/diaryfab"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="일기"
-        android:textSize="20sp"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:contentDescription=""
+        android:src="@drawable/fab"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+            android:id="@+id/diaryView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:mcv_selectionColor="#00F"
+            app:mcv_showOtherDates="all">
+
+        </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/diaryRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toBottomOf="@+id/memoView" />
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

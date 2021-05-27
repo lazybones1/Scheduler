@@ -6,10 +6,10 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/showDate"
+        android:id="@+id/momoForm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="일정추가"
+        android:text="메모 추가"
         android:textSize="40sp"
         android:gravity="center"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/showDate"
+        app:layout_constraintTop_toBottomOf="@+id/momoForm"
         android:layout_marginTop="15dp">
 
         <LinearLayout
@@ -31,17 +31,17 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="일정 이름"
+                android:text="메모 이름"
                 android:textSize="20sp"
                 android:gravity="center"
                 android:layout_weight="2"
                 />
             <EditText
-                android:id="@+id/addCalendarName"
+                android:id="@+id/addMemoName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="일정 이름을 입력해 주세요"
+                android:hint="메모 이름을 입력해 주세요"
                 />
         </LinearLayout>
 
@@ -52,20 +52,20 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="시작 날짜"
+                android:text="날짜"
                 android:textSize="20sp"
                 android:gravity="center"
                 android:layout_weight="1"
                 />
             <TextView
-                android:id="@+id/addCalendarStartDate"
+                android:id="@+id/addMemoDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="시작날짜"
+                android:hint="날짜"
                 />
             <Button
-                android:id="@+id/startDayBtn"
+                android:id="@+id/startMemoDayBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="날짜선택"
@@ -77,63 +77,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="시작 시간"
-                android:textSize="20sp"
-                android:gravity="center"
-                android:layout_weight="1"
-                />
-            <TextView
-                android:id="@+id/addCalendarStartTime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="시작 시간"
-                />
-            <Button
-                android:id="@+id/startTimeBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="시간선택"
-                android:textSize="10sp"
-                android:layout_weight="1"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="종료 시간"
-                android:textSize="20sp"
-                android:gravity="center"
-                android:layout_weight="1"
-                />
-            <TextView
-                android:id="@+id/addCalendarEndTime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="종료 시간"
-                />
-            <Button
-                android:id="@+id/endTimeBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="시간선택"
-                android:textSize="10sp"
-                android:layout_weight="1"
-                />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginTop="10dp"
             >
@@ -142,11 +85,12 @@
                 android:layout_height="wrap_content"
                 android:text="메모"
                 android:textSize="20sp"
-                android:gravity="center"
+                android:gravity="left"
+                android:paddingLeft="30dp"
                 android:layout_weight="2"
                 />
             <EditText
-                android:id="@+id/addCalendarMemo"
+                android:id="@+id/addMemo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="200dp"
@@ -161,7 +105,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/addCalendarBtn"
+        android:id="@+id/addMemoBtn"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:text="등록"

@@ -27,10 +27,16 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.mobileapp.scheduler.Async.CalendarInsertAsync;
 import com.mobileapp.scheduler.Async.CalendarShowAsync;
+import com.mobileapp.scheduler.Async.DiaryInsertAsync;
+import com.mobileapp.scheduler.Async.MemoInsertAsync;
 import com.mobileapp.scheduler.dao.CalendarDao;
 import com.mobileapp.scheduler.databinding.ActivityMainBinding;
 import com.mobileapp.scheduler.entity.Calendar;
+import com.mobileapp.scheduler.entity.Diary;
+import com.mobileapp.scheduler.entity.Memo;
 import com.mobileapp.scheduler.room.CalendarRoomDatabase;
+import com.mobileapp.scheduler.room.DiaryRoomDatabase;
+import com.mobileapp.scheduler.room.MemoRoomDatabase;
 import com.mobileapp.scheduler.ui.calender.AddCalendarActivty;
 import com.mobileapp.scheduler.ui.calender.CalendarFragment;
 import com.mobileapp.scheduler.ui.diary.DiaryFragment;
@@ -50,7 +56,9 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private long backKeyPressedTime = 0;
 
-    CalendarRoomDatabase c;
+    CalendarRoomDatabase calendarDB;
+    MemoRoomDatabase memoDB;
+    DiaryRoomDatabase diaryDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,20 +68,9 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        c = CalendarRoomDatabase.getDatabase(this);
-        List<Calendar> tmplist = new ArrayList<>();
-        try {
-            tmplist = new CalendarShowAsync(c.calendarDao()).execute().get();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        Log.e("CalendarDb S", ""+tmplist.size());
-        for(int i = 0; i<tmplist.size(); i++){
-            Log.e("CalendarDb", "" + tmplist.get(i).getCalendarName() + " " + tmplist.get(i).getStartDay());
-        }
-
+        calendarDB = CalendarRoomDatabase.getDatabase(this);
+        memoDB = MemoRoomDatabase.getDatabase(this);
+        diaryDB = DiaryRoomDatabase.getDatabase(this);
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -111,8 +108,6 @@ public class MainActivity extends AppCompatActivity {
                 login();
             }
         });
-
-
     }
 
     //navigation drawer
@@ -185,11 +180,42 @@ public class MainActivity extends AppCompatActivity {
            calendar.setEndTime(data.getStringExtra("c_eTime"));
            calendar.setCalendar_memo(data.getStringExtra("c_cMemo"));
 
-           new CalendarInsertAsync(c.calendarDao()).execute(calendar);
+           new CalendarInsertAsync(calendarDB.calendarDao()).execute(calendar);
 
            Intent intent = getIntent();
            finish();
            startActivity(intent);
+        }
+       else if (requestCode == MemoFragment.MEMO_REQUEST_CODE) {
+           if (resultCode != Activity.RESULT_OK) {
+               return;
+           }
+           Memo memo = new Memo();
+           memo.setMemoName(data.getStringExtra("mName"));
+           memo.setMemoContent(data.getStringExtra("mMemo"));
+           memo.setMemoDay(data.getStringExtra("mDate"));
+
+           new MemoInsertAsync(memoDB.memoDao()).execute(memo);
+
+           Intent intent = getIntent();
+           finish();
+           startActivity(intent);
+       }
+       else if (requestCode == DiaryFragment.DIARY_REQUEST_CODE) {
+            if (resultCode != Activity.RESULT_OK) {
+                return;
+            }
+           Diary diary = new Diary();
+           diary.setDiaryName(data.getStringExtra("dName"));
+           diary.setDiary_weather(data.getStringExtra("mWeather"));
+           diary.setDiary_day(data.getStringExtra("dDate"));
+           diary.setDiary_memo(data.getStringExtra("dMemo"));
+
+           new DiaryInsertAsync(diaryDB.diaryDao()).execute(diary);
+
+            Intent intent = getIntent();
+            finish();
+            startActivity(intent);
         }
     }
 }

@@ -1,6 +1,5 @@
 package com.mobileapp.scheduler.ui.calender;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -8,23 +7,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.database.DataSnapshot;
 import com.mobileapp.scheduler.Async.CalendarShowAsync;
 import com.mobileapp.scheduler.Async.CalendarShowWantAsync;
 import com.mobileapp.scheduler.R;
 import com.mobileapp.scheduler.adapter.CalendarAdapter;
+import com.mobileapp.scheduler.decoartor.EventDecorator;
+import com.mobileapp.scheduler.decoartor.SaturdayDecorator;
+import com.mobileapp.scheduler.decoartor.SundayDecorator;
 import com.mobileapp.scheduler.entity.Calendar;
 import com.mobileapp.scheduler.room.CalendarRoomDatabase;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
@@ -35,7 +31,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -94,7 +89,7 @@ public class CalendarFragment extends Fragment {
             }
         });
 
-        fab = root.findViewById(R.id.fab);
+        fab = root.findViewById(R.id.calfab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,10 +127,5 @@ public class CalendarFragment extends Fragment {
                 new SaturdayDecorator()
 //                new EventDecorator(Color.RED, Collections.singleton(CalendarDay.today())),
         );
-    }
-
-    public void refreshFragment(){
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.detach(this).attach(this).commit();
     }
 }
