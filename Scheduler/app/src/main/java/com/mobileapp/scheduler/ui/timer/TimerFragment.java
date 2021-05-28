@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -49,6 +51,8 @@ public class TimerFragment extends Fragment {
 
 
             if((timeHourCount-1)<0 && (timeMinuteCount-1)<0 && timeSecondCount<0){ //00:00:00
+                startStopBtn.setText("start");
+                getActivity().startService(new Intent(getActivity(), AlarmService.class));
                 handler.removeCallbacks(runnable);
             }
             else {
