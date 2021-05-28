@@ -4,6 +4,7 @@ package com.mobileapp.scheduler.ui.calender;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,8 +22,9 @@ import java.util.Calendar;
 public class AddCalendarActivty extends AppCompatActivity {
     EditText cname, cMemo;
     TextView sDate, sTime, eTime;
-    Button addCalBtn, startDayBtn, endDayBtn, startTimeBtn, endTimeBtn;
-
+    Button addCalBtn, startDayBtn, startTimeBtn, endTimeBtn;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor_time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,8 @@ public class AddCalendarActivty extends AppCompatActivity {
         startTimeBtn = findViewById(R.id.startTimeBtn);
         endTimeBtn = findViewById(R.id.endTimeBtn);
 
+        sharedPreferences = getSharedPreferences("timer", MODE_PRIVATE);
+        editor_time = sharedPreferences.edit();
 
         addCalBtn.setOnClickListener(new View.OnClickListener() {
             @Override

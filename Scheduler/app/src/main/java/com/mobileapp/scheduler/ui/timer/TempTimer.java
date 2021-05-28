@@ -1,27 +1,30 @@
 package com.mobileapp.scheduler.ui.timer;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.mobileapp.scheduler.MainActivity;
 import com.mobileapp.scheduler.R;
 
-public class TimerFragment extends Fragment {
+public class TempTimer extends AppCompatActivity {
 
     private TextView timeH, timeM, timeS;
     private EditText editH, editM, editS;
-    private boolean firstStart;
+    private boolean firstStart, timerStartPushed;
     private int timeHourCount, timeMinuteCount, timeSecondCount;
     private String h, m, s;
     private Double firstTime, currTime;
@@ -35,7 +38,6 @@ public class TimerFragment extends Fragment {
         @Override
         public void run() {
             timeH.setText(String.valueOf(timeHourCount));
-            //10보다 작은 경우 01, 02, 03,,,,
             if (timeMinuteCount < 10) {
                 timeM.setText(String.valueOf("0" + timeMinuteCount));
             } else {
@@ -47,8 +49,9 @@ public class TimerFragment extends Fragment {
                 timeS.setText(String.valueOf(timeSecondCount--));
             }
 
-
             if((timeHourCount-1)<0 && (timeMinuteCount-1)<0 && timeSecondCount<0){ //00:00:00
+                startStopBtn.setText("start");
+                startService(new Intent(getApplicationContext(), AlarmService.class));
                 handler.removeCallbacks(runnable);
             }
             else {
@@ -66,26 +69,39 @@ public class TimerFragment extends Fragment {
     };
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_timer, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_temp_timer);
 
-        startStopBtn = root.findViewById(R.id.startStop); // 시작/정지 버튼.
-        resetBtn = root.findViewById(R.id.reset); // 리셋 버튼.
+        startStopBtn = findViewById(R.id.startStop); // 시작/정지 버튼.
+        resetBtn = findViewById(R.id.reset); // 리셋 버튼.
 
-        setting = root.findViewById(R.id.setting); //시간 설정창
-        timerView = root.findViewById(R.id.countDown); //타이머 화면.
+        setting = findViewById(R.id.setting); //시간 설정창
+        timerView = findViewById(R.id.countDown); //타이머 화면.
         timerView.setVisibility(View.INVISIBLE); //처음에는 타이머 화면이 보이지 않음.
 
-        editH = root.findViewById(R.id.timeHourEditText);
-        editM = root.findViewById(R.id.timeMinuteEditText);
-        editS = root.findViewById(R.id.timeSecondEditText);
+        editH = findViewById(R.id.timeHourEditText);
+        editM = findViewById(R.id.timeMinuteEditText);
+        editS = findViewById(R.id.timeSecondEditText);
 
-        timeH = root.findViewById(R.id.timeHourText);
-        timeM = root.findViewById(R.id.timeMinuteText);
-        timeS = root.findViewById(R.id.timeSecondText);
+        timeH = findViewById(R.id.timeHourText);
+        timeM = findViewById(R.id.timeMinuteText);
+        timeS = findViewById(R.id.timeSecondText);
 
         firstStart = true;
+
+        Intent i = getIntent();
+        SharedPreferences sharedPreferences = getSharedPreferences("timerStartPushed", Context.MODE_PRIVATE);
+        timerStartPushed = sharedPreferences.getBoolean("timerStartPushed", false);
+        if(timerStartPushed) {
+            CurrTimeSetting(i.getIntExtra("timeH", 0), i.getIntExtra("timeM", 0), i.getIntExtra("timeS", 0) );
+            handler.post(runnable);
+            setting.setVisibility(View.GONE);
+            timerView.setVisibility(View.VISIBLE);
+            firstStart = false;
+            startStopBtn.setText("STOP");
+            resetBtn.setText("RESET & BACK");
+        }
 
         startStopBtn.setOnClickListener(new View.OnClickListener() { //시작/정지 버튼 push
             @Override
@@ -114,13 +130,18 @@ public class TimerFragment extends Fragment {
         resetBtn.setOnClickListener(new View.OnClickListener() { //리셋 버튼 push
             @Override
             public void onClick(View v) {
-                firstStart = true;
-                setting.setVisibility(View.VISIBLE);
-                timerView.setVisibility(View.INVISIBLE);
+                if(timerStartPushed){
+                    Intent i = new Intent(TempTimer.this, MainActivity.class);
+                    firstStart=true;
+                    startActivity(i);
+                }
+                else {
+                    firstStart = true;
+                    setting.setVisibility(View.VISIBLE);
+                    timerView.setVisibility(View.INVISIBLE);
+                }
             }
         });
-
-        return root;
 
     }
 
@@ -137,7 +158,7 @@ public class TimerFragment extends Fragment {
     }
 
     private  void CurrTimeSetting(int h, int m, int s) {
-        currTime = (double) ((h *3600000 )+ (m*60000) + (s*1000));
+        currTime = (double) ((h *3600000)+ (m*60000) + (s*1000));
 
         timeHourCount = (int) (currTime/3600000);
         timeMinuteCount = (int) (currTime%3600000/60000);

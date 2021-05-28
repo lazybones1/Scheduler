@@ -67,9 +67,10 @@ public class DiaryAdapter extends RecyclerView.Adapter {
             diaryContent.setText(diary.getDiary_memo());
             diaryWeather.setText(diary.getDiary_weather());
         }
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+
             @Override
-            public void onClick(View v) {
+            public boolean onLongClick(View v) {
                 DiaryRoomDatabase db = DiaryRoomDatabase.getDatabase(activity);
                 Diary dialogCal = null;
 
@@ -102,6 +103,7 @@ public class DiaryAdapter extends RecyclerView.Adapter {
                     });
                     builder.show();
                 }
+                return false;
             }
         });
     }

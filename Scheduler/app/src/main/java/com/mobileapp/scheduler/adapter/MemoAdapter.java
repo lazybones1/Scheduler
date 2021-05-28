@@ -63,9 +63,9 @@ public class MemoAdapter extends RecyclerView.Adapter {
 
             Log.e("리사이클러뷰 확인", ""+memoName.getText() + " " + memoContent.getText());
         }
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public void onClick(View v) {
+            public boolean onLongClick(View v) {
                 MemoRoomDatabase db = MemoRoomDatabase.getDatabase(activity);
                 Memo dialogCal = null;
 
@@ -98,6 +98,7 @@ public class MemoAdapter extends RecyclerView.Adapter {
                     });
                     builder.show();
                 }
+                return false;
             }
         });
     }
