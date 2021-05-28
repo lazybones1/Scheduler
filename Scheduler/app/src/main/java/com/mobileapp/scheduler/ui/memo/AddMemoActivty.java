@@ -62,4 +62,6 @@ public class AddMemoActivty extends AppCompatActivity {
                     mDate.setText(String.format("%d-%d-%d", yy,mm+1,dd));
                 }
             };
+    //ytyjfjytf
+
 }
