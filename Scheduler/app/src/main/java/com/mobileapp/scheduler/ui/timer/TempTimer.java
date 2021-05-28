@@ -50,8 +50,9 @@ public class TempTimer extends AppCompatActivity {
                 timeS.setText(String.valueOf(timeSecondCount--));
             }
 
-
             if((timeHourCount-1)<0 && (timeMinuteCount-1)<0 && timeSecondCount<0){ //00:00:00
+                startStopBtn.setText("start");
+                startService(new Intent(getApplicationContext(), AlarmService.class));
                 handler.removeCallbacks(runnable);
             }
             else {
